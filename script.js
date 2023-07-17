@@ -16,7 +16,7 @@ function updateHistory() {
 	$("#history").empty();
 	cities.history.forEach((city) => {
 	  // create city element
-	  const cityEl = $("<div>")
+	  var cityEl = $("<div>")
 		.attr("data-city", city)
 		.addClass("text-muted p-2 bg-white border city-history")
 		.text(city);
@@ -36,13 +36,13 @@ function updateHistory() {
   }
   
   function deleteCity(city) {
-	const delIndex = cities.history.indexOf(city);
+	var delIndex = cities.history.indexOf(city);
 	cities.history.splice(delIndex, 1);
 	updateHistory();
   }
   
   function getWeather(city) {
-	const currentURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&appid=${apiKey}`; // current weather api from openweathermap.org
+	var currentURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&appid=${apiKey}`; // current weather api from openweathermap.org
   
 	// openweathermap.org Current Weather API
 	$.ajax({
@@ -59,7 +59,7 @@ function updateHistory() {
 	  let cityName = response.name;
   
 	  if (city.includes(",")) {
-		const stateCountry = city.split(",");
+		var stateCountry = city.split(",");
 		for (let i = 1; i < stateCountry.length; i++) {
 		  cityName += `, ${stateCountry[i].trim().toUpperCase()}`;
 		}
@@ -107,7 +107,7 @@ function updateHistory() {
 		$("#forecast").empty(); // this worked as well: $("#forecast").html("");
 		for (let i = 1; i <= 5; i++) {
 
-		  const data = response.daily[i],
+		  var data = response.daily[i],
 			date = moment.unix(data.dt).format("MM/DD/YY"),
 			iconURL = `https://openweathermap.org/img/wn/${data.weather[0].icon}.png`,
 			iconAlt = data.weather[0].description,
@@ -158,7 +158,7 @@ function updateHistory() {
   $("#search").click(function (event) {
 	event.preventDefault();
 	// user form 
-	const cityForm = $("#city").val().trim(),
+	var cityForm = $("#city").val().trim(),
 	  stateForm = $("#state").val().trim(),
 	  countryForm = $("#country").val().trim();
 	let search4city = cityForm;
@@ -184,7 +184,7 @@ function updateHistory() {
   
   $("#history").on("click", ".city-delete", function (event) {
 	event.stopPropagation();
-	deleteCity($(this).parent().attr("data-city"));
+	
   });
 
 
